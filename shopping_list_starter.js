@@ -37,7 +37,7 @@ console.log(welcomeMessage)
 
 let shoppingList = []
 let reply = ""
-let active = true
+
 while (active == true) {
 
     checkAnswer(promptUser()) //this makes the program continously prompt and check response while the boolean 'active' returns true
@@ -52,15 +52,16 @@ function promptUser() {
 
 }
 
-function checkAnswer() {
+function checkAnswer(reply) {
     let answer = reply.split(" ")
+    console.log(answer)
     if (answer[0] != "remove" && answer[0] != "add") {
         console.log("*invalid action*")
         active = true
     } else if (anwer[1] == undefined) {
         console.log("*You have given no item to add or remove*")
-        active = true
-    } else if (anwer[0] == "end" && anserw[1] == "list") {
+        active = truee
+    } else if (answer[0] == "end" && anserw[1] == "list") {
         active = false
     }
 }
@@ -73,6 +74,6 @@ function addItem() {
 }
 
 function removeItem() {
-
+    reply.includes()
 
 }
