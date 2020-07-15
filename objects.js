@@ -24,12 +24,12 @@ console.log("------------------- CHALLENGE 1 : DEFINE    -------------------")
 let object = {
     name: "box",
     isEmpty: true,
-    fillMe(){
-        this.isEmpty=false
+    fillMe() {
+        this.isEmpty = false
     },
-    emptyMe(){
+    emptyMe() {
 
-        this.isEmpty =true
+        this.isEmpty = true
     }
 }
 //working with the object:
@@ -41,38 +41,66 @@ object.contents.push("thing 4")
 console.log(`${object.name} has ${object.contents} `)
 console.log(object)
 
- 
+
 
 //-->TODO: Declare a new object and set at least 4 properties to it including: string, boolean, number, array
 
 //*********************************  MY OBJECT *************************** */
+let dog = {
+    name: "Cookie",
+    breed: "Shih Tzu",
+    color: ["white", "ligh brown", "Dark brown"],
+    age: 1,
+    sex: "male",
+    bark() {
+        console.log("Insert anoying dog bark")
+    },
+    ageingOneYear() {
+        this.age = this.age + 1;
+        console.log("Cookie was " + this.age + " years old");
+    },
+    colorChange() {
+        this.color.pop();
+        console.log("Cookie had grown up, and the dark brown spots in his disappear. :O");
+        this.ageingOneYear();
+    }
+}
 
 
 
 
-
-
-//************************************************************************* */
+// //************************************************************************* */
 
 
 
-console.log("------------------- CHALLENGE 2 : MODIFY   -------------------")
+// console.log("------------------- CHALLENGE 2 : MODIFY   -------------------")
 
-//-->TODO: Log your object you created above
+// //-->TODO: Log your object you created above
 
+// //console.log(dog)
 
-//-->TODO: Update the object you just created  by adding new properties and values, including array elements, in this section.
+// //-->TODO: Update the object you just created  by adding new properties and values, including array elements, in this section.
+// //dog.furCut = false
 
+// //-->TODO: Log your object again and observe changes
 
-//-->TODO: Log your object again and observe changes
+// console.log(dog)
 
+// console.log("------------------- CHALLENGE 3 : METHOD   -------------------")
 
-console.log("------------------- CHALLENGE 3 : METHOD   -------------------")
+// //-->TODO: Add at least two methods (object functions) to your object defined in Challenge 1 and invoke them here.
+// //          Make your methods update your variables, or add a random number to an array, etc.
+// console.log("I'm not running the functions becuase I'm running them for my story. If I run them here is will ruin the story")
+// //dog.ageingOneYear()
+// //dog.colorChange()
 
-//-->TODO: Add at least two methods (object functions) to your object defined in Challenge 1 and invoke them here.
-//          Make your methods update your variables, or add a random number to an array, etc.
-
-
-console.log("------------------- CHALLENGE 4 : LITERALLY   -------------------")
+// console.log("------------------- CHALLENGE 4 : LITERALLY   -------------------")
 
 //-->TODO: Put it all together using a string literal to tell the story of your object!
+
+message = "Hello! I'm Shaylee and this is my dog " + dog.name + " He is a " + dog.breed + ". When I first got " + dog.name + ", he was\n" + dog.age + " years old. His fur was " + dog.color + ". One day I noticed somthing "
+
+messagePart2 = " now."
+console.log(message)
+dog.colorChange()
+console.log(messagePart2)

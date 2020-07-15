@@ -132,7 +132,20 @@ console.log("------------------- CHALLENGE 4 : MATH QUIZ   -------------------")
 //         Use this handy boolean to get you started! You will need readline_sync!
 
 let isCorrect = false
+let p = Math.floor(Math.random() * Math.floor(100));
+let y = Math.floor(Math.random() * Math.floor(100));
+let z = p + y
 
+while (isCorrect == false) {
+    res = READLINE.question(`What does ${p} plus ${y} equal? >>`)
+    num = parseInt(res, 10);
+    if (num == z) {
+        console.log("Your answer is correct")
+        isCorrect = true
+    } else {
+        console.log("Your answer is in incorrect. Please try again.")
+    }
+}
 
 console.log("------------------- CHALLENGE 5 : WHAT AM I?   -------------------")
 
@@ -156,10 +169,10 @@ function response() {
 
 }
 
-function checkResponse(){
-    if (x === "ChiliCat"){
+function checkResponse() {
+    if (x === "ChiliCat") {
         console.log("Wait... I am a ChiliCat! :O ")
-        keepAsking = true 
+        keepAsking = true
     }
 }
 

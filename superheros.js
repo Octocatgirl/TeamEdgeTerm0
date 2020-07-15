@@ -19,15 +19,15 @@
 
 console.log("-------------------  SUPERHERO !!  -------------------")
 
-const DELAY = 3000
+const DELAY = 1000
 const DAMAGE_LIMIT = 5
 const MAJOR_BLOW = DAMAGE_LIMIT -2
-const LIVES_TOP_RANGE = 60
-const LIVES_BOTTOM_RANGE = 40
+const LIVES_TOP_RANGE = 20
+const LIVES_BOTTOM_RANGE = 10
 let rounds = 1
 let gameIsOn = true
 
-//COMMENT 1: 
+//COMMENT 1: Gives the constants and variables. The constants stay the same throughout the code
 class Superhero {
 
     constructor(name, isAlive, friends, hitPoints, isGood , attackPower) {
@@ -36,11 +36,10 @@ class Superhero {
        this.taunts=[]
        this.cries=[]
        this.lives = []
-       
-       
+       // Comment 2: these are variables that everything in the Superhero class has. All objects in the Superhero class are isAlive
      } attack(enemy){
         
-        //COMMENT 2 ....
+        
         if(this.isAlive && enemy.isAlive){  
           
             console.log("  \n   ")
@@ -53,13 +52,20 @@ class Superhero {
                  
             }
 
-             //COMMENT 3....  
+             //COMMENT 3: This function attacks the enemy when the the enemy is alive and the object(superhero) is alive. The damage is a random number between 0 and the damge_limit (which is a constanstant)
+             //Takes the number from the damage to splice out that number of hearts. There is an if statement to check if the damage is a major blow
             console.log(`${this.name} 💬 : ${this.taunts[randomInteger(0,this.taunts.length-1)]} \n`)
             console.log(`${this.name}  💥X ${damage} ${enemy.name}  ${enemy.lives} : ${enemy.lives.length} \n`)
-
+            // what I added in
+            if (damage > 0){
+            console.log(`${enemy.name} 💬: ${enemy.cries[randomInteger(0,enemy.cries.length-1)]}\n `)
+            } else {
+                console.log(`${enemy.name} 💬: ${enemy.taunts[randomInteger(0,enemy.taunts.length-1)]}\n `)
+            }
+            // This make them say their cries when hit and taunt if they got "hit" but damage was zero
             if(enemy.lives.length <= 0){
                
-                //COMMENT 4....
+                //COMMENT 4: This runs when the enemy has zero hearts, The enemy then becomes dead and the game is over. It also ends the timer. 
                 enemy.isAlive=false
                 gameIsOn =false
                 console.log(`💀💀💀💀💀💀 ${enemy.name} has been slain!!! 💀💀💀💀💀 `)
@@ -81,7 +87,8 @@ class Superhero {
      }
 
      fillHealth(){
-          //COMMENT 5....
+          //COMMENT 5: This chooses a randome num between the values inputed in for LIVES_BOTTOM_RANGE and LIVES_TOP_RANGE. 
+          //It then pushes that amount of heart emojies into the lives array. 
           let amt = randomInteger(LIVES_BOTTOM_RANGE, LIVES_TOP_RANGE)
            
             for(let i = 0; i <= amt ; i++){
@@ -92,7 +99,7 @@ class Superhero {
     }
  }
 
-//COMMENT 6....
+//COMMENT 6: This makes the an Oject under the super hero class called batman. HE has his own taunts, cries, and name. It calles on batman.fillHealth to get the health amount. ITs the same with joker.
 let batman = new Superhero()
 batman.name="Batman 🦸‍♂️"
 batman.isAlive = true 
@@ -116,7 +123,7 @@ console.log(`${batman.name} 💬 ${batman.taunts[1]}  \n `)
 console.log(`${joker.name} 💬 ${joker.taunts[1]}  \n `)
 
 
-//COMMENT 7....
+//COMMENT 7: This is making a function that makes two objects perform the attack function on eachother and add one to rounds
 function fight(a, b){
     console.log(" ------------- ROUND -------------> " + rounds)
     
@@ -134,7 +141,7 @@ function randomInteger(min, max) {
   }
 
 
-  //COMMENT 8....
+  //COMMENT 8: this timer makes a delay between each round. The if statment r
   let timer = setInterval(function() {
 
     if(gameIsOn){
