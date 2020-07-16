@@ -19,7 +19,7 @@
 
 console.log("-------------------  SUPERHERO !!  -------------------")
 
-const DELAY = 1000
+const DELAY = 100
 const DAMAGE_LIMIT = 5
 const MAJOR_BLOW = DAMAGE_LIMIT -2
 const LIVES_TOP_RANGE = 20
@@ -141,7 +141,7 @@ function randomInteger(min, max) {
   }
 
 
-  //COMMENT 8: this timer makes a delay between each round. The if statment r
+  //COMMENT 8: this timer makes a delay between each round. The if statment makes it where they only fight while the game is on. It does not run fight if the game is off.
   let timer = setInterval(function() {
 
     if(gameIsOn){
