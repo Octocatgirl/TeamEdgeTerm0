@@ -107,7 +107,7 @@ function removeItem() {
 
 function endList() {
     shoppingListjoined = shoppingList.join("\n- ")
-    console.log("\nThank You for using our services!\nHere is your list:\n______________________________\n\n- " + shoppingListjoined + "\n\nHave a nice day!")
+    console.log("\nThank You for using our services!\nHere is your list:\n______________________________\n\n-" + shoppingListjoined + "\n\nHave a nice day!")
     active = false
 }
 

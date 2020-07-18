@@ -17,6 +17,8 @@
 
 const READLINE = require("readline-sync");
 
+
+
 console.log("------------------- CHALLENGE 1 : COUNTER -------------------")
 
 //this array logs every number between 0 and 10, using the index i
