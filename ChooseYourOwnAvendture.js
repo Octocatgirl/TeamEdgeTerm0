@@ -8,9 +8,59 @@ let gameIsOn = true
 let currentRoom = []
 let backpack = []
 let performedLookUP = false
-let itemLocation = []
+let hallway3Entered = false
+let itemLocation = ["NONE"]
 // let notebook = [] might include a note book later
+//-------------------------------------------------------------------------------------------
+//End scence messages
+endScencewin = `
+GREAT JOB PLAYER! Or should I say Jordan. You have correctly given me your name, now I shall 
+tell you the truth about the past. 
 
+//5 years ago//
+
+You and Catrina loved each other very much. Together you planned to live a happy life together
+with her, but that was not to be the case. Catrina's father was against your relationship
+with Catrina. So he forced Catrina into a arranged marriage. Catrina was then married to
+Dave. Even Catrina was married to someone else you persisted. As long as your together
+you will be happy you thought. Catrina higher you as maid, so you can be with her with
+out Dave noticing. Catrina thought that Dave wasn't a bad person, but she turned out
+to be wrong...
+
+//4 years ago//
+
+You start to notice an air on unease around Catrina. Confronting her she confessed
+that she is carrying Dave's child. She told you how she did want to have a child,
+but end up doing it to please Dave. This made feel concern about Catrina's 
+realtionship with Dave.
+
+//3 years ago//
+
+Catrina end up conciving twins. One boy and one girl. As time went on it seem like Dave was
+getting more and more controlling. 
+
+//2 years ago//
+
+Dave fired you and is trying to isolate Catrina. You need to do something about this.
+Becuase Catrina's husband took away her phone, you and Catrina comunicate through letters.
+
+//1 year ago//
+
+Dave has gone crazy. The twins were found murdered. Dave and Catrina are missing. 
+
+//1 week ago//
+
+You have finnally found Catrina. You plan to break her out of the flat that Dave is 
+keeping her in. You ened up failing. Catrina was unfortunaly crushed by the chandelier,
+you killed dave in the bed room and then killed yourself becuase Catrina was dead. 
+
+//Now//
+
+YeS yOu aRE dEaD
+
+Congrats you won the game! ^_^
+
+`
 //-------------------------------------------------------------------------------------------
 let allRooms = []
 class Room {
@@ -42,36 +92,22 @@ class item {
 let phone = new item()
 phone.canTake = true
 phone.location = "bedroom"
-phone.examined = false
-if (phone.examined == true) {
-    phone.name = "phone"
-    phone.description = `
+phone.name = "phone"
+phone.description = `
                            【ＰＨＯＮＥ】
 _______________________________________________________________________________
-You mess with the phone in your hands. Hoping it will burst to life. The phone 
-is still off..
+You mess with the phone in your hands. Hoping it will burst to life. It sadly 
+stays dead. If you can some how charge it maybe you can find some important
+information. 
 _______________________________________________________________________________
 `
-} else {
-    phone.description = `
-                    【ＢＬＡＣＫ　ＯＢＪＥＣＴ】
-_______________________________________________________________________________
-You look at the black flat object. It feels familar in your hands. Then it hits
-you. This is a phone! Hit the buttons you note that it's off. If you can some
-how charge it maybe you can call for help. 
-_______________________________________________________________________________
-`
-    phone.name = "blackobject"
-}
 phone.items = []
-
-
-
+// find out how to change phone descritpion 
 //-------------------------------------------------------------------------------------------
 let bedroom = new Room()
 bedroom.name = "bedroom"
 bedroom.doors = ["bathroom", "hallway1"]
-bedroom.items = ["clock", phone.name]  //black object is a phone. Player won't know it's a phone till they interact with it
+bedroom.items = ["clock", "phone"]  //black object is a phone. Player won't know it's a phone till they interact with it
 bedroom.needsKey = false
 bedroom.description = `                   
                          【ＢＥＤＲＯＯＭ】
@@ -81,7 +117,7 @@ You are in a bedroom. There are no windows in the room, the only light source
 is coming from one iridecent light bulb hanging above your head. In the middle
 of the room there is a full sized bed. The sheets on the bed are greasy and 
 stained with with somthing that looks like dirt. You see a clock on the 
-nightstand besides the bed. You notice a thin black object on the bed. 
+nightstand besides the bed. 
 
 [Items: ${bedroom.items}] [Doors: ${bedroom.doors}]
 
@@ -237,7 +273,7 @@ _______________________________________________________________________________
 let hallway3 = new Room()
 hallway3.name = "hallway3"
 hallway3.doors = ["ballroom"]
-hallway3.items = ["diary#1"]
+hallway3.items = ["diary"]
 hallway3.needsKey = false
 hallway3.FirstEnter = `
                        【ＨＡＬＬＷＡＹ　３】
@@ -308,22 +344,23 @@ _______________________________________________________________________________
 //-------------------------------------------------------------------------------------------
 let hallway5 = new Room()
 hallway5.name = "hallway5"
-hallway5.doors = ["lockeddoor"]
+hallway5.doors = ["lockeddoor", "ballroom"]
 hallway5.items = []
 hallway5.needsKey = false
 hallway5.description = `
                         【ＨＡＬＬＷＡＹ　５】
 _______________________________________________________________________________
 
-You enter another hallway. You notice a puddle of liquided leaking under from 
-the closed door. You try to open the door, it's locked. 
+You enter another hallway. At the end of the hallway there is a door. You 
+notice a puddle of liquided leaking under from the closed door. You try to 
+open the door, it's locked. 
 
 [Items: N/A] [Doors: ${hallway5.doors} ]  
 _______________________________________________________________________________
 `
 //-------------------------------------------------------------------------------------------
 let lockedDoor = new Room()
-lockedDoor.name = "hallway5"
+lockedDoor.name = "lockeddoor"
 lockedDoor.doors = []
 lockedDoor.needsKey = true
 lockedDoor.items = ["Diary#2", "Charger"]
@@ -338,6 +375,14 @@ shuts, trapping you in the room. Startled you trip on a cord which turns out
 to be a charger. 
 
 [Items: ${lockedDoor.items}] [Doors: N/A ]                          
+
+_______________________________________________________________________________
+`
+lockedDoor.DoorisLocked = `
+                       【ＬＯＣＫ　ＤＯＯＲ】
+_______________________________________________________________________________
+
+The door is locked. It looks like you will need some sort of key to open it.                           
 
 _______________________________________________________________________________
 `
@@ -651,7 +696,7 @@ I am done with all this. Catrina seems to be ignoring me. She's my wife she's
 suppose to love me. I had to take away her phone to make sure that she wasn't 
 seeing anyone else. She always seems depressed. Is it becuase I made her have 
 kids? If she doesn't want the kids I'll take care of them. They were taking 
-up space anyways. But why does she seem so happy when the nanny comes...
+up space anyways. But why does she seem so happy when the maid comes...
 _______________________________________________________________________________
 `
 //-------------------------------------------------------------------------------------------
@@ -697,7 +742,7 @@ plug it into. The end of the charger seems to be the perfect fit for a phone.
 _______________________________________________________________________________
 `
 
-let ItemsItems = [pen,paper,note,sandwhich]
+let ItemsItems = [pen, paper, note, sandwhich]
 
 function promptUser() {
     let action = READLINE.question("\nWhat would you like to do player >>  ").toLowerCase()
@@ -717,7 +762,6 @@ function checkingADrawer(itemName) {
         }
     }
 }
-
 function roomNameCheck(roomName) {
     for (let room of allRooms) {
         if (room.name == roomName) {
@@ -725,49 +769,65 @@ function roomNameCheck(roomName) {
         }
     }
 }
+function checkForKey(room) {
+    if (backpack.includes("key")) {
+        currentRoom.pop()
+        currentRoom.push(room)
+        READLINE.question("\n [ You take the key from your backpack and inset it into the key hole. It fits! The door opens... ]   ")
+        console.log(currentRoom[0].description)
+    } else {
+        console.log(lockedDoor.DoorisLocked)
+    }
+}
+function checkIfhallway3(room) {
+    if (hallway3Entered == false) {
+        console.log(hallway3.FirstEnter)
+        hallway3Entered = true
+    }
+}
 
 function checkAnswer(action) {
     inputMsg = action
     console.log("\n")
     inputMsg = inputMsg.split(" ");
-    // Examine item action
-    if (inputMsg[0] == "examine" && inputMsg[1] != undefined && inputMsg[2] == undefined) {
-        if (currentRoom[0].items.includes(inputMsg[1])) {
-            let item = nameCheck(inputMsg[1]);
-            console.log(item.description)
-            if (item == "blackobject") {
-                phone.examined = true
-                console.log(phone.name)
-            }
-            if (item.canTake) {
-                index = currentRoom[0].items.indexOf(item)
-                currentRoom[0].items.slice(index, 1)
-                backpack.push(item)
-                console.log(`You have now acquired a [${item.name}]`)
-            } else if (item.storeItems) {
-                itemLocation.pop()
-                itemLocation.push(item)
-            }
-        }
-        else if (itemLocation[0].items.includes(inputMsg[1])) {
-            let item = checkingADrawer(inputMsg[1])
-            console.log(item.description)
-            if (item.canTake) {
-                index = currentRoom[0].items.indexOf(item)
-                currentRoom[0].items.slice(index, 1)
-                backpack.push(item.name)
-                item.location = backpack
-                console.log(`You have now acquired a [${item.name}]`)
-            }
-        }
-        else if (!currentRoom[0].items.includes(inputMsg[1]) && !currentRoom[0].items.includes(inputMsg[1])) {
-            console.log("\n [ Invalid Item ] \n")
-        }
-    }
-
     // Examine room action
     if (inputMsg[0] == "examine" && inputMsg[1] == "room") {
         console.log(currentRoom[0].description)
+    }
+    // Examine item action
+    if (inputMsg[0] == "examine" && inputMsg[1] != undefined && inputMsg[2] == undefined && inputMsg[1] != "room") {
+        if (currentRoom[0].items.includes(inputMsg[1]) || itemLocation[0].items.includes(inputMsg[1])) {
+            if (currentRoom[0].items.includes(inputMsg[1])) {
+                let item = nameCheck(inputMsg[1]);
+                console.log(item.description)
+                if (item.canTake) {
+                    index = currentRoom[0].items.indexOf(item.name)
+                    currentRoom[0].items.splice(index, 1)
+                    backpack.push(item.name)
+                    item.cantake = false
+                    console.log(`You have now acquired a [${item.name}]`)
+                    return currentRoom[0].items
+                } else if (item.storeItems) {
+                    itemLocation.pop()
+                    itemLocation.push(item)
+                }
+            }
+            else if (itemLocation[0].items.includes(inputMsg[1])) {
+                let item = checkingADrawer(inputMsg[1])
+                console.log(item.description)
+                if (item.canTake) {
+                    index = itemLocation[0].items.indexOf(item.name)
+                    itemLocation[0].items = itemLocation[0].items.splice(index, 1)
+                    backpack.push(item.name)
+                    item.cantake = false
+                    console.log(`You have now acquired a [${item.name}]`)
+                }
+            } else if (!currentRoom[0].items.includes(inputMsg[1]) && !itemLocation[0].items.includes(inputMsg[1])) {
+                console.log("\n [ Invalid Item ] \n")
+            }
+        } else {
+            console.log("\n [ Invalid Item ] \n")
+        }
     }
     // help action
     else if (inputMsg[0] == "help" && inputMsg[1] == undefined) {
@@ -781,7 +841,7 @@ function checkAnswer(action) {
                             is in the Room description. There are also some items that contain items. You can examine 
                             those too. 
         
-        'MoveTo {Room}' >> Type MoveTo and then the room you want to move to. When you move to a room, you will automatically 
+        'Enter {Room}' >> Type enter and then the room you want to move to. When you move to a room, you will automatically 
                            see the room description. Room's that you can access is listed in room description under
                            doors. 
         
@@ -795,20 +855,26 @@ function checkAnswer(action) {
 
         `)
     }
-    // MoveTo room action
-    else if (inputMsg[0] == "moveto" && inputMsg[2] == undefined) {
+    // enter room action
+    else if (inputMsg[0] == "enter") {
 
         if (currentRoom[0].doors.includes(inputMsg[1])) {
             let room = roomNameCheck(inputMsg[1])
-            currentRoom.pop()
-            currentRoom.push(room)
-            console.log(currentRoom[0].description)
+            checkIfhallway3(room)
+            if (room.needsKey == true) {
+                checkForKey(room)
+            } else {
+                currentRoom.pop()
+                currentRoom.push(room)
+                console.log(currentRoom[0].description)
+            }
         } else {
             console.log(" \n [ Invaid Room ]\n ")
         }
-    // quit game action
+
+        // quit game action
     }
-    else if (inputMsg[0] == "quit" && inputMsg[1] == "game" && inputMsg[2]==undefined) {
+    else if (inputMsg[0] == "quit" && inputMsg[1] == "game" && inputMsg[2] == undefined) {
         let areYousure = READLINE.question("Are you sure you want to end the game? >> ").toLowerCase()
         if (areYousure = "yes") {
             console.log("\n           [ ENDING GAME ]\n")
@@ -816,17 +882,48 @@ function checkAnswer(action) {
         } else { console.log("\n      [ CONTNUING GAME ] \n") }
     }
     // check backpack action
-    else if( inputMsg[0]== "check" && inputMsg[1]=="backpack" && inputMsg[2]==undefined){
-        // make backpack = names of items in backpack
+    else if (inputMsg[0] == "check" && inputMsg[1] == "backpack" && inputMsg[2] == undefined) {
         console.log(`Items in your backpack are: ${backpack}`)
-        doYou = READLINE.queston("Do you want to examine any items in your backpack? >> ").toLowerCase()
-        if (doYou == "yes"){
-            itemToexamine = READLINE.question("Which item do you wish to examine? >>")
-            if (backpack.includes(itemToexamine)){
-                let item = nameCheck(intemToexamine);
+        doYou = READLINE.question("\nDo you want to examine any items in your backpack? >> ").toLowerCase()
+        if (doYou == "yes") {
+            itemToexamine = READLINE.question("\nWhich item do you wish to examine? >>  ")
+            if (backpack.includes(itemToexamine)) {
+                let item = nameCheck(itemToexamine);
                 console.log(item.description)
             }
         }
+    }
+    // Look up action, only avaible in bathroom
+    else if (inputMsg[0] == "look" && inputMsg[1] == "up" && inputMsg[2] == undefined && currentRoom[0] == bathroom) {
+        if (performedLookUP == false) {
+            console.log(bathroom.LookUpDecription)
+            performedLookUP = true
+        } else {
+            console.log(`
+           [ You don't want to look back up there. Do something else ]
+           `)
+        }
+    }
+    else if (inputMsg[0] != "look" && inputMsg[0] != "examine" && inputMsg[0] != "enter" && inputMsg[0] != "check" && inputMsg[0] != "quit" && inputMsg[1] != "game" && inputMsg[1] != "up" && inputMsg[1] != "room" && inputMsg[0] != "guess" && inputMsg[1] != "name" && (!allItems.includes(inputMsg[1]) || !ItemsItems.includes(inputMsg[1]))) {
+        console.log(`
+        [ Invalid Action ]
+        `)
+    }
+    else if (inputMsg[0] == "guess" && inputMsg[1] == "name") {
+        areYouREADY = READLINE.question("Are ready player, Remember you only get one chance?\ndO yOu kNow yOuR NaMe? (yes or no )>>  ").toLowerCase()
+        if (areYouREADY == "yes") {
+            name = READLINE.question(`
+Suddenly your vision goes dark. "IT iS TiMe plAYeR", you hear the voice wisper into you head,
+"It is tImE tO GeUSSe Your NAme. NOW WHAT IS YOUR NAME!"  >>
+            `).toLowerCase()
+            if (name == "jordan") {
+                console.log(endScencewin)
+                gameIsOn = false
+            } else {
+                console.log(endScencelose)
+                gameIsOn = false
+            }
+        } else { console.log("\nChange your mind? Take your time till YOUR READY\n") }
     }
 }
 
