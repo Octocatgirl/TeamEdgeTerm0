@@ -61,6 +61,10 @@ YeS yOu aRE dEaD
 Congrats you won the game! ^_^
 
 `
+
+endScencelose = `
+
+`
 //-------------------------------------------------------------------------------------------
 let allRooms = []
 class Room {
@@ -803,6 +807,7 @@ function checkAnswer(action) {
                 if (item.canTake) {
                     index = currentRoom[0].items.indexOf(item.name)
                     currentRoom[0].items.splice(index, 1)
+                    console.log(currentRoom[0].items)
                     backpack.push(item.name)
                     item.cantake = false
                     console.log(`You have now acquired a [${item.name}]`)
@@ -989,5 +994,7 @@ yourself you look around the room you are in.
 }
 
 start(); // STARTS EVERYTHING 0-0
+
+// things I need to add: The condition for having phone and charger, notebook function, changing description for phone
 
 
